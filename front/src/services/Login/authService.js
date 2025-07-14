@@ -14,12 +14,12 @@ export const verifyToken = async (token) => {
     });
 
     if (!response.ok) {
-      return false; // Si la respuesta no es OK, el token es inválido
+      return false; 
     }
 
-    return true; // El token es válido
+    return true; 
   } catch (error) {
     console.error("Error verificando el token:", error);
-    return false; // Si ocurre un error, asumimos que el token es inválido
+    return false; 
   }
 };

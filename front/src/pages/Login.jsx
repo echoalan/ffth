@@ -7,26 +7,27 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();  // Hook de navegación
+  const navigate = useNavigate(); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError("");  // Resetea el error en cada intento
+    setError("");  
 
     try {
       const token = await loginUser(email, password);
-      localStorage.setItem("token", token);  // Guardamos el token
+      localStorage.setItem("token", token);  
       setLoading(false);
-      navigate("/products");  // Redirige a /products o la página principal
+      navigate("/Mapa");  
     } catch (error) {
       setLoading(false);
-      setError(error.message); // Mostrar el error en caso de fallo
+      setError(error.message); 
     }
   };
 
   return (
-    <div className="login-container">
+    <div className="login-page">
+      <div className="login-container">
       <form className="login-form" onSubmit={handleSubmit}>
         <h2>Iniciar Sesión</h2>
         <input
@@ -46,8 +47,9 @@ const Login = () => {
         <button type="submit" disabled={loading}>
           {loading ? "Cargando..." : "Ingresar"}
         </button>
-        {error && <p className="error-message">{error}</p>}
+        {error && <p className="error-message">Error</p>}
       </form>
+    </div>
     </div>
   );
 };

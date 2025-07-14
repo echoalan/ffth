@@ -21,6 +21,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        ProductVariant::observe(ProductVariantObserver::class);
+       
     }
 }

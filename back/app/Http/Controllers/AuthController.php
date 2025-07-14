@@ -16,7 +16,7 @@ class AuthController extends Controller
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|unique:users,email',
-                'password' => 'required|string|min:6|confirmed',
+                'password' => 'required|string|min:6',
             ]);
         } catch (ValidationException $e) {
             return response()->json([
@@ -40,27 +40,31 @@ class AuthController extends Controller
     public function login(Request $request)
     {
 
-   // Validar los datos recibidos
-        $validatedData = $request->validate([
+        // Validar los datos de entrada
+        $credentials = $request->only('email', 'password');
+        $validator = \Validator::make($credentials, [
             'email' => 'required|email',
-            'password' => 'required|string|min:6'
+            'password' => 'required|min:6',
         ]);
-
-
-        $credentials = [
-            'email' => $validatedData['email'],
-            'password' => $validatedData['password']
-        ];
-
-        try{
-            if(!$token = JWTAuth::attempt($credentials)){
-                return response()->json(['error' => 'algo mal']);
-            }
-        }catch(JWTException){
-            return response()->json(['error' => 'no se pudo generar el token'], 500);
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Errores de validación',
+                'errors' => $validator->errors()
+            ], 422);
         }
-
-        return response()->json(['token' => $token]);
+        // Intentar generar el token JWT
+        try {
+            if (!$token = JWTAuth::attempt($credentials)) {
+                return response()->json(['error' => 'Credenciales inválidas'], 401);
+            }
+        } catch (JWTException $e) {
+            return response()->json(['error' => 'No se pudo crear el token'], 500);
+        }
+        // Retornar el token JWT
+        return response()->json([
+            'message' => 'Inicio de sesión exitoso',
+            'token' => $token
+        ], 200);
 
     }
 

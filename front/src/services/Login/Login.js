@@ -1,7 +1,7 @@
 import URL_API from "../API";
 
 export const loginUser = async (email, password) => {
-    const url = `${URL_API}/login`;  // Cambiar a la URL de tu API
+    const url = `${URL_API}/login`; 
     const headers = {
       "Content-Type": "application/json",
     };
@@ -24,7 +24,7 @@ export const loginUser = async (email, password) => {
         throw new Error(data.error || "Error al iniciar sesión");
       }
   
-      return data.token; // Retorna el token si todo sale bien
+      return data.token; 
     } catch (error) {
       throw new Error(error.message || "Error de red");
     }
