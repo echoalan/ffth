@@ -3,13 +3,14 @@ import L from 'leaflet';
 import { MapContainer, TileLayer, CircleMarker, Polyline, Popup, useMapEvents, Marker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import createNodo from '../../services/nodos/createNodos';
-import AgregarCliente from '../AgregarCliente/AgregarCliente';
 
 import iconOLT from '../../assets/images/data-center.png';
 import iconBotella from '../../assets/images/botella.png';
 import iconCaja from '../../assets/images/caja.png';
 import iconCaja8 from '../../assets/images/caja8.png';
 import antena from "../../assets/images/antena.png";
+import ModalSplitter from '../ModalSplitter/ModalSplitter';
+
 
 const ClickHandler = ({ onClick }) => {
   useMapEvents({
@@ -103,6 +104,11 @@ const MapaComponent = () => {
 
   const [modalAgregarClienteVisible, setModalAgregarClienteVisible] = useState(false);
 
+  /*esto es para intentar mejorar el modal al abrir cada caja*/
+  const [modalSplitter, setModalSplitter] = useState(false);
+  const [nodoSelected, setNodoSelected] = useState(null);
+
+  /*------------------------------------------*/
 
   const iconosPersonalizados = {
     OLT: L.icon({
@@ -129,7 +135,7 @@ const MapaComponent = () => {
       iconAnchor: [16, 32],
       popupAnchor: [0, -32]
     }),
-      Antena: L.icon({
+    Antena: L.icon({
       iconUrl: antena,
       iconSize: [100, 100],
       iconAnchor: [100, 100],
@@ -149,7 +155,7 @@ const MapaComponent = () => {
     iconSize: [50, 50],
     iconAnchor: [16, 32],
     popupAnchor: [0, -32],
-    className: 'icono-resaltado' 
+    className: 'icono-resaltado'
   });
 
   const ZoomHandler = ({ setZoomLevel }) => {
@@ -162,23 +168,23 @@ const MapaComponent = () => {
     return null;
   };
 
-const getIconSize = (zoom) => {
-  const baseSize = 18;
-  let newSize;
+  const getIconSize = (zoom) => {
+    const baseSize = 18;
+    let newSize;
 
-  if (zoom < 16) {
-    newSize = baseSize + (zoom - 20);
-  } else if (zoom === 16) {
-    newSize = baseSize + (zoom - 15) * 4;
-  } else if (zoom >= 17) {
-    newSize = baseSize + (zoom - 15) * 7; 
-  } 
+    if (zoom < 16) {
+      newSize = baseSize + (zoom - 20);
+    } else if (zoom === 16) {
+      newSize = baseSize + (zoom - 15) * 4;
+    } else if (zoom >= 17) {
+      newSize = baseSize + (zoom - 15) * 7;
+    }
 
-  // Limitar tamaño mínimo
-  if (newSize < 5) newSize = 5;
+    // Limitar tamaño mínimo
+    if (newSize < 5) newSize = 5;
 
-  return [newSize, newSize];
-};
+    return [newSize, newSize];
+  };
 
 
   const getIconAnchor = (size) => {
@@ -413,6 +419,10 @@ const getIconSize = (zoom) => {
               click: () => {
                 console.log('Nodo clickeado:', nodo);
 
+                setNodoSelected(nodo); // Guardar el nodo seleccionado
+
+                setModalSplitter(true)
+
                 if (nodo.tipo === 'Splitter1x4') {
                   // Obtener IDs de cajas 1x8 conectadas
                   const cajas8Conectadas = nodo.conexiones_origen
@@ -422,9 +432,9 @@ const getIconSize = (zoom) => {
                   setNodosResaltados(cajas8Conectadas);
 
                   // Obtener rutas (conexiones) que conectan a esas cajas resaltadas
-                 const rutasQueResaltan = nodo.conexiones_origen
-                  .filter(con => con.nodo_destino && cajas8Conectadas.includes(con.nodo_destino.id))
-                  .map(con => con.id);
+                  const rutasQueResaltan = nodo.conexiones_origen
+                    .filter(con => con.nodo_destino && cajas8Conectadas.includes(con.nodo_destino.id))
+                    .map(con => con.id);
 
                   setRutasResaltadas(rutasQueResaltan);
 
@@ -453,34 +463,8 @@ const getIconSize = (zoom) => {
                 setNodosResaltados([]);
               }
             }}
+
           >
-            <Popup onClose={() => { setNodosResaltados([]); }}>
-              <div  className='popupContent' style={{ minWidth: '200px' }}>
-                <h3 className='tipoNodoTitlePopup'>{nodo.tipo}</h3>
-
-                {nodo.tipo === 'Splitter1x4' && (
-                  <div className='casperData'>
-                    <h4 className='casperDataTitle'>Cajas NAP 1x8 conectadas:</h4>
-                    <p className='casperDataValue'>
-                      {nodo.conexiones_origen?.filter(con => con.nodo_destino?.tipo === 'Splitter1x8').length || 0}
-                    </p>
-                  </div>
-                )}
-
-                {nodo.tipo === 'Splitter1x8' && (
-                  <div>
-                    <h4>Clientes conectados:</h4>
-                    
-                    
-
-
-                    <div className='agregarClienteContainer'>
-                      <button className='agregarCliente' onClick={() => setModalAgregarClienteVisible(true)}>Agregar Cliente</button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </Popup>
           </Marker>
         ))}
 
@@ -491,7 +475,7 @@ const getIconSize = (zoom) => {
             <div>
               <strong>Conexión</strong><br />
               {popupConexion.tipo}<br />
-              {console.log('popupConexion:', popupConexion)}    
+              {console.log('popupConexion:', popupConexion)}
             </div>
           </Popup>
         )}
@@ -499,18 +483,20 @@ const getIconSize = (zoom) => {
       </MapContainer>
 
 
-      {modalAgregarClienteVisible
-        && (
-          <div className="modalAgregarCliente">
-            <AgregarCliente setModalAgregarClienteVisible={setModalAgregarClienteVisible} />
-          </div>
-        )
-      }
+      {modalSplitter && (
+        <div style={{
+          position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
+          background: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center',
+          zIndex: 2000
+        }}>
+          <ModalSplitter onClose={() => { setModalSplitter(false); setNodosResaltados([]); setNodoSelected(null); }} nodo={nodoSelected} />
+        </div>
+      )}
 
       {modalVisible && (
         <div style={{
           position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
-          background: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center',
+          background: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'start', alignItems: 'center',
           zIndex: 2000
         }}>
           <div className='containerTipoNodoModal'>
@@ -530,16 +516,6 @@ const getIconSize = (zoom) => {
                 <option className='option' value="Cliente">Cliente</option>
               </select>
             </div>
-
-            {/*<div style={{ marginBottom: 10 }}>
-              <label>Nombre:</label><br />
-              <input
-                type="text"
-                value={formNodo.nombre}
-                onChange={(e) => setFormNodo({ ...formNodo, nombre: e.target.value })}
-                style={{ width: '100%', padding: 5 }}
-              />
-            </div>*/}
 
             <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 10 }}>
               <button
@@ -574,10 +550,10 @@ const getIconSize = (zoom) => {
               >
                 <option value="">Seleccioná un tipo</option>
                 <option value="FibraTroncal">Fibra Troncal</option>
-                <option value="PON 3">Fibra PON 3</option>
-                <option value="PON 4">Fibra PON 4</option>
-                <option value="PON 5">Fibra PON 5</option>
-                <option value="PON 6">Fibra PON 6</option>
+                <option value="FIBRA PON 3">Fibra PON 3</option>
+                <option value="FIBRA PON 4">Fibra PON 4</option>
+                <option value="FIBRA PON 5">Fibra PON 5</option>
+                <option value="FIBRA PON 6">Fibra PON 6</option>
                 <option value="Fibra">Fibra</option>
               </select>
             </div>
@@ -652,6 +628,31 @@ const getIconSize = (zoom) => {
         </div>
       )}
 
+
+      {/* Popup con información del nodo <Popup onClose={() => { ; }}>
+              <div className='popupContent' style={{ minWidth: '200px' }}>
+                <h3 className='tipoNodoTitlePopup'>{nodo.tipo}</h3>
+
+                {nodo.tipo === 'Splitter1x4' && (
+                  <div className='casperData'>
+                    <h4 className='casperDataTitle'>Cajas NAP 1x8 conectadas:</h4>
+                    <p className='casperDataValue'>
+                      {nodo.conexiones_origen?.filter(con => con.nodo_destino?.tipo === 'Splitter1x8').length || 0}
+                    </p>
+                  </div>
+                )}
+
+                {nodo.tipo === 'Splitter1x8' && (
+                  <div className='casperFormAdddClient'>
+                    <h4>Clientes conectadoss:</h4>
+
+                    <div className="modalAgregarCliente">
+                      <AgregarCliente nodo={nodo} setModalAgregarClienteVisible={setModalAgregarClienteVisible} />
+                    </div>
+                  </div>
+                )}
+              </div>
+            </Popup>*/}
 
 
     </div>

@@ -8,7 +8,7 @@ function App() {
   return (
     <main className='main'>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Mapa />} />
 
         <Route element={<PrivateRoute />}>
           <Route path="/Mapa" element={<Mapa />} />

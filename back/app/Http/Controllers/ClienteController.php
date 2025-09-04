@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ClienteController extends Controller
 {
@@ -12,10 +13,8 @@ class ClienteController extends Controller
      */
     public function buscarPorNombre(Request $request)
     {
-        // Obtener y limpiar el nombre del body JSON
         $nombre = trim($request->input('nombre'));
 
-        // Validar que se haya enviado y no sea vacío
         if (!$nombre) {
             return response()->json([
                 'success' => false,
@@ -23,10 +22,29 @@ class ClienteController extends Controller
             ], 400);
         }
 
-        // Buscar clientes que contengan el nombre (insensible a mayúsculas/minúsculas)
-        $clientes = Cliente::where('nombre', 'LIKE', '%' . $nombre . '%')->get();
+        $clientes = DB::table('clientes as c')
+            ->leftJoin('onus as o', function($join) {
+                $join->whereRaw("RIGHT(TRIM(c.usuario), 6) = RIGHT(TRIM(o.serial_number), 6)");
+            })
+            ->where('c.nombre', 'LIKE', '%' . $nombre . '%')
+            ->select(
+                'c.id',
+                'c.usuario', 
+                'c.nombre', 
+                'c.plan',
+                'c.fecha_inicio',
+                'c.direccion',
+                'c.caja_id',
+                'o.serial_number', 
+                'o.rx_power', 
+                'o.tx_power', 
+                'o.temperature',
+                'o.status',
+                'o.distance'
+                
+            )
+            ->get();
 
-        // Responder con resultados, aunque sea un array vacío
         return response()->json([
             'success' => true,
             'message' => $clientes->isEmpty() 
@@ -34,5 +52,30 @@ class ClienteController extends Controller
                 : 'Clientes encontrados.',
             'data' => $clientes
         ]);
+    }
+
+    public function asignarCaja(Request $request)
+    {
+      
+        // Tomar los datos
+        $clienteId = $request->input('cliente_id');
+        $cajaId = $request->input('caja_id');
+
+        // Actualizar la tabla clientes
+        $updated = DB::table('clientes')
+            ->where('id', $clienteId)
+            ->update(['caja_id' => $cajaId]);
+
+        if ($updated) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Caja asignada correctamente.'
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'No se pudo asignar la caja. Verifica el cliente.'
+            ], 400);
+        }
     }
 }

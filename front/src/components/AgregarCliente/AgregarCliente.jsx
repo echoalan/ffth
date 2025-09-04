@@ -1,16 +1,14 @@
 import React from "react"
 import BuscarCliente from "../BuscarCliente/BuscarCliente";
 
-const AgregarCliente = ( { setModalAgregarClienteVisible } ) => {
+const AgregarCliente = ( { nodo, setModalAgregarClienteVisible } ) => {
   return (
     <div className="agregarClienteModal">
      
         <h2>Agregar Cliente</h2>
 
-
-         <BuscarCliente />
+         <BuscarCliente nodo={nodo} />
       
-        <button className="cancelarCaja" onClick={() => setModalAgregarClienteVisible(false)}>Cerrar</button>
       
     </div>
   );
