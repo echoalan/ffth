@@ -6,6 +6,7 @@ import Header from "../components/Header";
 import MapaComponent from "../components/Mapa/MapaComponent";
 import Aside from "../components/Aside/Aside";
 import VerClientes from "../components/Clientes/VerClientes";
+import ClientesAltos from "../components/ClientesAltos/ClientesAltos";
 
 const Products = () => {
   const navigate = useNavigate();
@@ -35,6 +36,7 @@ const Products = () => {
       <Header />
       <section className="containerContent">
         <VerClientes />
+        <ClientesAltos/>
         <MapaComponent />
       </section>
     

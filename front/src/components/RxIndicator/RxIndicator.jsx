@@ -1,20 +1,23 @@
 // RxIndicator.js
-import React from "react";
+import './RxIndicador.css'
 
 const RxIndicator = ({ rx, status }) => {
-  if (!rx) return <span className="rxText">RX: N/A</span>;
+  if (!rx && rx !== 0) return <span className="rxText">RX: N/A</span>;
 
   const valor = parseFloat(rx);
+  let clase = "rx-verde"; // default verde
 
-  let clase = "rx-bueno";
-
-  // si la ONU está offline → directamente rojo
-  if (status !== "Online") {
-    clase = "rx-offline";
-  } else if (valor < -29 || valor > -19) {
-    clase = "rx-malo";
-  } else if (valor === -29 || valor === -19) {
-    clase = "rx-regular";
+  // 🔴 OFFLINE o muy malo (≤ -30)
+  if (status !== "Online" || valor <= -30) {
+    clase = "rx-rojo";
+  } 
+  // 🟠 Malo (-29, -28, -27) 
+  else if (valor <= -27) {
+    clase = "rx-naranja";
+  } 
+  // 🟢 Bueno (-26 a -19)
+  else if (valor >= -26 && valor <= -19) {
+    clase = "rx-verde";
   }
 
   return (
@@ -24,5 +27,7 @@ const RxIndicator = ({ rx, status }) => {
     </div>
   );
 };
+
+
 
 export default RxIndicator;

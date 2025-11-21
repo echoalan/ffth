@@ -1,0 +1,42 @@
+/* Estilos del componente de las luces */
+.rxWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rxDot {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  display: inline-block;
+  /* Brillo */
+  box-shadow: 0 0 6px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+.rxText {
+  font-size: clamp(0.7rem, 0.9vw, 0.9rem);
+  color: #555;
+}
+
+/* Luces con glow */
+.rx-rojo {
+  background-color: #c0392b;
+  box-shadow: 0 0 8px #c0392b, 0 0 5px #e74c3c;
+}
+
+.rx-naranja {
+  background-color: #e67e22;
+  box-shadow: 0 0 8px #e67e22, 0 0 5px #f39c12;
+}
+
+.rx-verde {
+  background-color: #3cb371;
+  box-shadow: 0 0 8px #3cb371, 0 0 5px #2ecc71;
+}
+
+/* Efecto pulsante opcional */
+.rxDot:hover {
+  transform: scale(1.2);
+}

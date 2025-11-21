@@ -111,39 +111,35 @@ class ClienteController extends Controller
         }
     }
 
-    public function clientesConProblemas()
-    {
-        $clientes = DB::table('clientes as c')
-            ->leftJoin('onus as o', function($join) {
-                $join->whereRaw("RIGHT(TRIM(c.usuario), 6) = RIGHT(TRIM(o.serial_number), 6)");
-            })
-            ->select(
-                'c.id',
-                'c.usuario', 
-                'c.nombre', 
-                'c.plan',
-                'c.fecha_inicio',
-                'c.direccion',
-                'c.caja_id',
-                'o.serial_number', 
-                'o.rx_power', 
-                'o.tx_power', 
-                'o.temperature',
-                'o.status',
-                'o.distance'
-            )
-            ->where(function($q) {
-                $q->where('o.status', '!=', 'Online')                      // offline
-                ->orWhereRaw('CAST(o.rx_power AS DECIMAL(5,2)) < -29')   // muy bajo
-                ->orWhereRaw('CAST(o.rx_power AS DECIMAL(5,2)) > -19');  // muy alto
-            })
-            ->orderBy('c.nombre', 'asc')
-            ->get();
+        public function clientesRxAlLimite()
+        {
+            $clientes = DB::table('clientes as c')
+                ->leftJoin('onus as o', function($join) {
+                    $join->whereRaw("RIGHT(TRIM(c.usuario), 6) = RIGHT(TRIM(o.serial_number), 6)");
+                })
+                ->select(
+                    'c.id',
+                    'c.usuario', 
+                    'c.nombre', 
+                    'c.plan',
+                    'c.fecha_inicio',
+                    'c.direccion',
+                    'c.caja_id',
+                    'o.serial_number', 
+                    'o.rx_power', 
+                    'o.tx_power', 
+                    'o.temperature',
+                    'o.status',
+                    'o.distance'
+                )
+                ->whereRaw("CAST(o.rx_power AS DECIMAL(5,3)) <= -27")
+                ->orderBy('o.rx_power', 'desc')
+                ->paginate(10);  // 👈 PAGINADO AQUÍ
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Clientes con problemas en RX.',
-            'data' => $clientes
-        ]);
-    }
+            return response()->json([
+                'success' => true,
+                'message' => 'Clientes con RX al límite (-28 dBm o peor).',
+                'data' => $clientes
+            ]);
+        }
 }

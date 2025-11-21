@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { clientesByNodos } from '../../services/nodos/clientesByNodos';
 import AgregarCliente from '../AgregarCliente/AgregarCliente';
 import RxIndicator from '../RxIndicator/RxIndicator';
+import './ModalSplitter.css'
 
 const ModalSplitter = ({ onClose, nodo }) => {
   const [clientes, setClientes] = useState([]);
@@ -31,52 +32,46 @@ const ModalSplitter = ({ onClose, nodo }) => {
         <button className="btnCloseModal" onClick={onClose}>Cerrar</button>
       </div>
       <div className="containerClientesSplitter">
-
         {nodo.tipo === 'Splitter1x4' && (
           <div>
             <p>Este es un splitter 1x4.</p>
           </div>
         )}
-
-
-
         {loading ? (
-          <p>Cargando clientes...</p>
+          <div className="clientesConectados">
+            <h2>Clientes Conectados:</h2>
+
+            <ul className="UserList">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <li className="user skeletonUser" key={i}>
+                  <span className="nameUser skeletonText"></span>
+                  <span className="skeletonRx"></span>
+                </li>
+              ))}
+            </ul>
+          </div>
         ) : clientes.length > 0 ? (
           <div className="clientesConectados">
             <h2>Clientes Conectados:</h2>
-            {loading ? (
-              <p>Cargando clientes...</p>
-            ) : clientes.length > 0 ? (
-              <ul className='UserList' >
-                {clientes.map((c) => (
-                  <li
-                    className="user"
-                    key={c.id}
-                  
-                  >
-                    <span className="nameUser">{c.nombre}</span>
 
-                    {/* 🔥 ACÁ VA EL NUEVO COMPONENTE */}
-                    <RxIndicator rx={c.rx_power} status={c.status} />
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>Sin clientes</p>
-            )}
+            <ul className="UserList">
+              {clientes.map((c) => (
+                <li className="user" key={c.id}>
+                  <span className="nameUser">{c.nombre}</span>
+                  <RxIndicator rx={c.rx_power} status={c.status} />
+                </li>
+              ))}
+            </ul>
           </div>
-
-
         ) : (
-          <p>Sin clientes</p>
+          <div className="emptyFancy">
+            <div className="iconBox">🙈</div>
+            <h3>Sin clientes</h3>
+            <p>Este splitter todavía no tiene usuarios conectados.</p>
+          </div>
         )}
-
-
         {nodo.tipo === 'Splitter1x8' && (
-          
-            <AgregarCliente nodo={nodo} onSuccess={fetchClientes} />
-       
+          <AgregarCliente nodo={nodo} onSuccess={fetchClientes} />
         )}
       </div>
     </article>

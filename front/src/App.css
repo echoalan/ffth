@@ -113,36 +113,40 @@ body {
 
 .Header {
   width: 100%;
-  background-color: #2e3a59;
+background: linear-gradient(135deg, #323232, #3f4a5a, #5c7080);
+
+
+
+
+
+
   display: flex;
   align-items: center;
-  flex-direction: row-reverse;
-  justify-content: end;
-  gap: 10px;
+  flex-direction: row;
+  justify-content: start;
 }
 
 .Header h1 {
   color: #fff;
-  font-size: 24px;
-  font-weight: 300;
+  font-size: clamp(1rem, 2vw, 1rem);
+  font-weight: 400;
 }
 
 .logo-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 10px;
 }
 
 .logo {
-  width: 50px;
+  width: 2.5rem;
   border-radius: 50%;
   padding: 5px;
 }
 
 /*containerContent*/
 
-.containerContent{
+.containerContent {
   display: flex;
   flex-direction: row-reverse;
   justify-content: start;
@@ -152,686 +156,43 @@ body {
 }
 
 
-/*mapa*/
 
-.Mapcontainer {
-  display: flex;
-  height: 100%;
-  width: 70%;
-}
-
-.containterActions {
-  position: absolute;
-  top: 50px;
-  right: 0;
-  z-index: 9999;
-  margin-left: 55px;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 10px;
-}
-
-.nuevaCaja {
-  background: linear-gradient(135deg, #4a90e2, #357ABD);
-  padding: 5px;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 5px;
-  font-size: 14px;
-  cursor: pointer;
-  width: 120px;
-}
-
-.cancelarCaja {
-  background: linear-gradient(135deg, #e24a4a, #bd3535);
-  padding: 5px;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 5px;
-  font-size: 14px;
-  cursor: pointer;
-  width: 120px;
-}
-
-
-
-.leaflet-tooltip.triangle-label {
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  color: white;
-  font-weight: bold;
-  font-size: 14px;
-  text-shadow: 1px 1px 2px black;
-  white-space: nowrap;
-  pointer-events: none;
-}
-
-.mensajeFlotante {
-  position: fixed;
-  bottom: 5px;
-  margin: 5px;
-  background-color: rgba(0, 128, 0, 0.575);
-  /* verde claro transparente */
-  color: rgb(245, 245, 245);
-  padding: 10px 15px;
-  border-left: 5px solid green;
-  border-radius: 6px;
-  font-weight: bold;
-  z-index: 9999;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-
-/*
-
-*/
-
-
-.modalMapa {
-  z-index: 9999;
-
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  height: 90%;
-  overflow-y: auto;
-  overflow-x: none;
-  padding-right: 3px;
-  scroll-behavior: smooth;
-}
-
-
-.gridOpciones {
-  padding: 5px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 5px;
-}
-
-
-
-
-.modalMapa::-webkit-scrollbar {
-  width: 8px;
-}
-
-.modalMapa::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.modalMapa::-webkit-scrollbar-thumb {
-  background-color: #2c5aa0;
-  border-radius: 10px;
-  border: 2px solid transparent;
-  background-clip: content-box;
-  transition: background-color 0.3s;
-}
-
-.modalMapa::-webkit-scrollbar-thumb:hover {
-  background-color: #4a90e2;
-}
-
-.tileOpcion {
-  width: 50px;
-  height: 50px;
-  border-radius: 3px;
-  border: 3px solid #357ABD;
-  cursor: pointer;
-  /* padding: 1px; */
-  background: #357ABD;
-}
-
-.tileOpcion img {
-  width: 100%;
-}
-
-.tipoNodoTitle {
-  font-size: 20px;
-  font-weight: 500;
-  text-align: center;
-  color: #333;
-}
-
-.labelTipoNodo {
-  margin-bottom: 5px;
-}
-
-.selectTipoNodo {
-  width: 100%;
-  padding: 5px;
-  border-radius: 3px;
-  border: 1px solid #ccc;
-  background-color: #fff;
-  font-size: 15px;
-  color: #333;
-  cursor: pointer;
-  margin-top: 5px;
-}
-
-.option {
-  padding: 5px;
-  border-radius: 3px;
-  background-color: #f0f4f8;
-  color: #333;
-  cursor: pointer;
-}
-
-.containerTipoNodoModal {
-  background-color: #fff;
-  padding: 8px 15px 15px 15px;
-  border-radius: 4px;
-
-}
-
-.modalConexion {
-  width: 280px;
-}
-
-
-.popupContent {
-  display: flex;
-  flex-direction: column;
-  font-size: 15px;
-}
-
-.tipoNodoTitlePopup {
-  text-align: center;
-  padding-bottom: 10px;
-  font-weight: 500;
-  color: #333;
-}
-
-.casperData {
-  display: flex;
-  gap: 2px;
-  padding: 0 0 10px 0;
-}
-
-.casperDataTitle {
-  font-weight: 500;
-}
-
-.casperDataValue {
-  font-weight: bold;
-}
-
-.agregarCliente {
-  background: linear-gradient(135deg, #4a90e2, #357ABD);
-  padding: 5px;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 5px;
-  font-size: 14px;
-  cursor: pointer;
-  width: 120px;
-}
-
-.agregarClienteContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.mb {
-  margin-top: 5px;
-}
-
-/*modalAgregarCliente*/
-
-.modalAgregarCliente {
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0.445);
-  width: 100%;
-  z-index: 200000;
-  height: 100%; 
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: start;
-}
-
-.casperFormAdddClient {
-  z-index: 200001;
-}
-
-.agregarClienteModal {
-  background-color: #fff;
-  border-radius: 4px;
-  padding: .5rem;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #d3d3d3;
-  width: 100%;
-  max-width: 338px;
-  top: 1rem;
-}
-
-.agregarClienteModal h2 {
-font-size: clamp(0.9rem, 1.1vw, 1.2rem);
-
-  color: #333;
-  font-weight: 500;
-}
-
-.formGroup {}
-
-.formGroup input {
-  width: 100%;
-  padding: 5px;
-  border-radius: 3px;
-  border: 1px solid #ccc;
-  background-color: #fff;
-  font-size: 15px;
-  color: #333;
-  cursor: pointer;
-  margin-top: 5px;
-}
-
-.formGroupBuscarCliente {
-  display: flex;
-  justify-content: center;
-  border: 1px solid #d9e2ec;
-  margin: 5px 0 5px 0;
-  border-radius: 4px;
-}
-
-.formGroupBuscarCliente input {
-  width: 100%;
-  padding: 0.2rem;
-  border-radius: 4px;
-  border: none;
-  background-color: #fff;
-font-size: clamp(0.7rem, 0.9vw, 0.9rem);
-
-  color: #333;
-  cursor: pointer;
-}
-
-.buscarClientBtn {
-  background: linear-gradient(135deg, #4a90e2, #357ABD);
-  cursor: pointer;
-  border: none;
-  color: #fff;
-  padding: 0 10px;
-  border-radius: 0px 4px 4px 0px;
-font-size: clamp(0.8rem, 0.9vw, 0.9rem);
-
-}
-
-.containerResultadoBuscarCliente {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.resultadoBuscarCliente {
-    max-height: 500px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.dataClient {
-  display: flex;
-  flex-direction: column;
-  border-radius: 4px;
-  border: 1px solid #d3d3d3;
-  padding: 0.4rem;
-    font-size: clamp(0.8rem, 0.9vw, 0.9rem);
-    background-color: #ebebeb;
-  
-}
-
-.dataClient {
-  color: rgb(68, 68, 68);
-}
-
-.totalEncontrados {
-  font-weight: 500;
-  color: #333;
-  margin-bottom: 5px;
-  font-size: .8rem;
-}
-
-
-.dataONU{
-  margin: 0.4rem 0 0.4rem 0;
-  padding: 0.4rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  background-color: #fff;
-}
-
-/*articleSplitters*/
-
-.articleSplitters {
-  background-color: #f3f3f3;
-  padding: .5rem;
-  border-radius: 4px;
-  position: absolute;
-  z-index: 9999;
-  max-height: 88vh;
-  width:700px;
-  margin-top: 2rem;
-}
-
-.containterBtnClose {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.5rem;
-}
-
-.containterBtnClose h2{
-font-size: clamp(1.2rem, 2vw, 1.5rem);
-  color: #333;
-  font-weight: 500;
-}
-
-.containterBtnClose button {
-  background: linear-gradient(135deg, #e24a4a, #bd3535);
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 0.2rem 0.4rem;
-  font-size: .6rem;
-  cursor: pointer;
-}
-
-.clientesConectados {
-  background-color: #fff;
-  border-radius: 4px;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  border: 1px solid #d3d3d3;
-  margin-bottom: 0.6rem;
-  width: 100%;
-
-}
-
-.clientesConectados h2 {
-font-size: clamp(0.9rem, 1.1vw, 1.2rem);
-  color: #333;
-  font-weight: 500;
-}
-
-.containerClientesSplitter{
-  display: flex;
-  gap: 5px;
-}
-
-.UserList{
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.user {
-display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 5px 7px;
-  margin: 1px 0;
-  border-radius: 5px;
-  background-color: #dfdfdf;
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
-  cursor: pointer;
-
-}
-
-.nameUser{
-  font-weight: 500;
-  margin-right: 10px;
-  font-size: clamp(0.7rem, 1vw, 1rem);
-}
-
-.rxPoweIndicator{
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.ledIndicator{
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 2px solid #ccc;
-}
-
-/* Fondo oscurecido + blur */
-.modalClientesOverlay {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Panel lateral */
-.modalClientesPanel {
-  height: 100%;
-  background: rgba(255,255,255,0.90);
-  backdrop-filter: blur(8px);
-  border-left: 1px solid #d3d3d3;
-  padding: .5rem .8rem;
-  display: flex;
-  flex-direction: column;
-  animation: slideIn 0.25s ease-out;
-}
-
-.articleVerCliente{
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  width: 30%;
-  min-width: 336px;
-}
-
-.articleVerCliente button{
-  background: linear-gradient(135deg, #4a90e2, #357ABD);
-  padding: 4px 12px;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  font-size: clamp(0.8rem, 1vw, .8rem);
-  cursor: pointer;
-}
-
-.inputBuscar{
-  width: 100%;
-  padding: 0.5rem;
-  border-radius: 4px;
-  border: none;
-  background-color: #fff;
-  font-size: 15px;
-  color: #333;
-  cursor: pointer;
-  margin-bottom: 1rem;
-  border: 1px solid #d9e2ec;
-}
-
-/* Animación */
-@keyframes slideIn {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-/* Header del modal */
-.modalClientesHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.modalClientesHeader h2 {
-  color: #2e3a59;
-  font-size: clamp(0.9rem, 1.1vw, 1.2rem);
-  font-weight: 500;
-}
-
-.modalClientesHeader button {
-  background: #bd3535;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-/* Lista */
-.listaClientes {
-  flex: 1;
-  overflow-y: auto;
-  padding-right: 8px;
-}
-
-.clienteCard {
-  background: white;
-  border: 1px solid #d9e2ec;
-  border-radius: 6px;
-  padding: 12px;
-  margin-bottom: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
-
-.clienteCard h3 {
-  font-size: 16px;
-  font-weight: 600;
-  color: #2e3a59;
-  margin-bottom: 4px;
-}
-
-.clienteUsuario {
-  font-size: 13px;
-  color: #555;
-  margin-bottom: 6px;
-}
-
-.rxPower {
-  font-size: 14px;
-  font-weight: bold;
-}
-
-
-/*estilos del componente de las luces*/
-
-.rxWrapper {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.rxDot {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-}
-
-.rxText {
-font-size: clamp(0.7rem, 0.9vw, 0.9rem);
-
-  color: #555;
-}
-
-/* Colores */
-.rx-bueno {
-  background-color: #4CAF50;   /* verde */
-}
-
-.rx-regular {
-  background-color: #FFC107;   /* amarillo */
-}
-
-.rx-malo {
-  background-color: #FF9800;   /* naranja */
-}
-
-.rx-offline {
-  background-color: #f28c8c;   /* rojo */
-}
-
-
-.paginacion {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 14px;
-  margin-top: 20px;
-  font-size: clamp(0.85rem, 1vw, 1rem);
-  user-select: none;
-}
-
-.paginacion span {
-  color: #555;
-  font-weight: 500;
-}
-
-.paginacion button {
-  padding: 6px 14px;
-  font-size: clamp(0.75rem, 1vw, 0.95rem);
-  border: none;
-  border-radius: 8px;
-  background-color: #1976d2;
-  color: white;
-  cursor: pointer;
-  transition: 0.2s ease-in-out;
-}
-
-.paginacion button:hover {
-  background-color: #145ea8;
-  transform: translateY(-1px);
-}
-
-.paginacion button:active {
-  transform: scale(0.96);
-}
-
-.paginacion button:disabled {
-  background-color: #b0bec5;
-  cursor: not-allowed;
-}
 
 
 /*responsive*/
 
+@media screen and (max-widt: 1366px){
+
+  .btnClientesAltos{
+    top: 10%;
+  }
+
+}
+
 @media screen and (max-width: 860px) {
 
-  .containerContent{
+  .containerContent {
     padding: 0;
   }
 
-  .containerClientesSplitter{
+  .containerClientesSplitter {
     flex-direction: column;
   }
 
-  .articleSplitters{
-        height: 100%;
-        width: 100%;
-      overflow: scroll;
-      margin-top: 0;
+  .articleSplitters {
+    height: 100%;
+    width: 95%;
+    overflow: scroll;
+    margin-top: 0;
   }
 
-  .resultadoBuscarCliente{
+  .resultadoBuscarCliente {
     max-height: 315px;
   }
 
-  
-}
+  .agregarClienteModal {
+    max-width: 100%;
+  }
 
+
+}

@@ -4,6 +4,7 @@ import { MapContainer, TileLayer, CircleMarker, Polyline, Popup, useMapEvents, M
 import 'leaflet/dist/leaflet.css';
 import createNodo from '../../services/nodos/createNodos';
 import URL_API from '../../services/API';
+import './Mapa.css'
 
 import iconOLT from '../../assets/images/data-center.png';
 import iconBotella from '../../assets/images/botella.png';
@@ -265,8 +266,67 @@ const MapaComponent = () => {
 
   return (
     <div className='Mapcontainer'>
-      
 
+      {/*
+            
+ <div>
+        <div className="containterActions">
+          {!modoCreacion ? (
+            <button className='nuevaCaja' onClick={() => setModoCreacion(true)}>Nuevo Nodo</button>
+          ) : (
+            <button className='cancelarCaja'
+              onClick={() => setModoCreacion(false)}>✖ Cancelar</button>
+          )}
+
+          {!modoConexion ? (
+            <button className='nuevaCaja' onClick={() => {
+              setModoConexion(true);
+              setDibujandoRuta(true);
+            }}>
+              Nueva Conexión
+            </button>
+          ) : (
+            <button className='cancelarCaja'
+              onClick={() => {
+                setModoConexion(false);
+                setNodoOrigen(null);
+                setNodoDestino(null);
+                setDibujandoRuta(false);
+                setRutaTemporal([]);
+              }}>
+              ✖ Cancelar
+            </button>
+          )}
+
+          {
+            <div className="modalMapa">
+              <button className="nuevaCaja" onClick={() => setMostrarModal(!mostrarModal)}>
+                {mostrarModal ? 'Cambiar Mapa' : 'Cambiar Mapa'}
+              </button>
+
+
+              {mostrarModal && (
+                <div className="modalTiles">
+                  <div className="gridOpciones">
+                    {tiles.map(tile => (
+                      <div
+                        key={tile.nombre}
+                        className={`tileOpcion ${tile.url === tileSeleccionado ? 'selected' : ''}`}
+                        onClick={() => setTileSeleccionado(tile.url)}
+                      >
+                        <img src={tile.preview} alt={tile.nombre} />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          }
+
+        </div>
+      </div>
+      
+      */}
 
       <MapContainer center={[-36.640, -57.790]} zoom={15.5} style={{ width: '100%', height: '100%' }}>
         <ZoomHandler setZoomLevel={setZoomLevel} />
@@ -420,11 +480,15 @@ const MapaComponent = () => {
       </MapContainer>
 
 
+      {/*este modal gestiona la vinculacion de clientes en las cajas*/}
+
       {modalSplitter && (
         <div className="modalAgregarCliente">
           <ModalSplitter onClose={() => { setModalSplitter(false); setNodosResaltados([]); setNodoSelected(null); }} nodo={nodoSelected} />
         </div>
       )}
+
+      {/*este modal gestiona la creacion de nuevos nodos*/}
 
       {modalVisible && (
         <div style={{
@@ -465,6 +529,9 @@ const MapaComponent = () => {
         </div>
       )}
 
+
+
+        {/*este modal gestiona la conexion entre nodos, ya sean fibras troncales, pon o comunes*/}
 
 
       {modalConexionVisible && (

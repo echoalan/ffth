@@ -1,0 +1,95 @@
+
+
+
+.contenidoAltos {
+  display: flex;
+  flex-direction: column;
+  height: 95%;
+  flex: 1;
+}
+
+.articleClientesAltos {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30%;
+  min-width: 300px;
+  height: 100%;
+  background: #fff;
+  box-shadow: -2px 0 12px rgba(0, 0, 0, 0.15);
+  padding: 1rem;
+  z-index: 999;
+  transition: transform .35s ease;
+  transform: translateX(100%);
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* Abierto */
+.articleClientesAltos.abierto {
+  transform: translateX(0);
+}
+
+/* Botón */
+.btnClientesAltos {
+  position: absolute;
+  top: 4.4rem;
+  z-index: 9999;
+  left: -5.9rem;
+  background: #323232;
+  padding: 4px 12px;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: clamp(0.8rem, 1vw, .8rem);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .4rem;
+  width: 98px;
+}
+
+.headerAltos {}
+
+
+.headerAltos h2 {
+  color: #2e3a59;
+  font-size: clamp(0.9rem, 1.1vw, 1.2rem);
+  font-weight: 500;
+}
+
+
+
+.cardsAltos {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: scroll;
+  gap: 10px;
+  margin-top: .5rem;
+}
+
+.cardAlto {
+  background: #f4f4f4;
+  padding: 6px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rxLevel {
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.pInfoAlto {
+  font-size: clamp(0.9rem, 1vw, 1rem);
+  font-weight: 600;
+  color: #2e3a59;
+}

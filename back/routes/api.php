@@ -43,8 +43,7 @@ Route::middleware(['jwt.auth'])->group(function () {
         Route::post('/asignar-caja', [ClienteController::class, 'asignarCaja']);
         Route::get('/', [ClienteController::class, 'listarClientes']);
         Route::get('/buscar', [ClienteController::class, 'buscarPorNombre']);// búsqueda por nombre
-        Route::get('/clientes/rx-problemas', [ClienteController::class, 'clientesConProblemas']);
-
+        Route::get('/limite', [ClienteController::class, 'clientesRxAlLimite']);
     });
 
 

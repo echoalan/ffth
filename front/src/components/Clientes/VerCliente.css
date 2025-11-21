@@ -1,0 +1,178 @@
+/* Fondo oscurecido + blur */
+.modalClientesOverlay {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Panel lateral */
+.modalClientesPanel {
+  height: 100%;
+  background: rgba(255, 255, 255, 0.90);
+  backdrop-filter: blur(8px);
+  border-left: 1px solid #d3d3d3;
+  padding: .5rem .8rem .5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.25s ease-out;
+}
+
+.articleVerCliente {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  width: 30%;
+  min-width: 300px;
+  position: absolute;
+  z-index: 999;
+  right: 0;
+  top: 0;
+  height: 100%;
+  transition: transform 0.35s ease;
+  /* ANIMACIÓN */
+}
+
+/* Estado abierto */
+.articleVerCliente.abierto {
+  transform: translateX(0);
+}
+
+/* Estado cerrado: lo movés para la derecha */
+.articleVerCliente.cerrado {
+  transform: translateX(100%);
+}
+
+.btnVer {
+  position: absolute;
+  top: 2rem;
+  z-index: 9999;
+  left: -5.9rem;
+  background: #323232;
+  padding: 4px 12px;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: clamp(0.8rem, 1vw, .8rem);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .4rem;
+}
+
+
+
+
+.inputBuscar {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: none;
+  background-color: #fff;
+  font-size: 15px;
+  color: #333;
+  cursor: pointer;
+  margin-bottom: .6rem;
+  border: 1px solid #d9e2ec;
+}
+
+
+/* Header del modal */
+.modalClientesHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.modalClientesHeader h2 {
+  color: #2e3a59;
+  font-size: clamp(0.9rem, 1.1vw, 1.2rem);
+  font-weight: 500;
+}
+
+.modalClientesHeader button {
+  background: #bd3535;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Lista */
+.listaClientes {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.clienteCard {
+  background: white;
+  border: 1px solid #d9e2ec;
+  border-radius: 6px;
+  padding: .4rem .6rem;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.clienteCard h3 {
+  font-size: clamp(0.9rem, 1.1vw, 1rem);
+  font-weight: 600;
+  color: #2e3a59;
+}
+
+.clienteUsuario {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+.rxPower {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+
+
+
+
+.paginacion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin-top: 20px;
+  font-size: clamp(0.85rem, 1vw, 1rem);
+  user-select: none;
+}
+
+.paginacion span {
+  color: #555;
+  font-weight: 500;
+}
+
+.paginacion button {
+  padding: 6px 14px;
+  font-size: clamp(0.75rem, 1vw, 0.95rem);
+  border: none;
+  border-radius: 8px;
+  background-color: #1976d2;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.paginacion button:hover {
+  background-color: #145ea8;
+  transform: translateY(-1px);
+}
+
+.paginacion button:active {
+  transform: scale(0.96);
+}
+
+.paginacion button:disabled {
+  background-color: #b0bec5;
+  cursor: not-allowed;
+}
