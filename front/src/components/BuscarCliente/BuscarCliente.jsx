@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import RxIndicator from "../RxIndicator/RxIndicator";
+import URL_API from "../../services/API";
 
-const BuscarCliente = ({ nodo }) => {
+
+const BuscarCliente = ({ nodo, onSuccess }) => {
   const [nombre, setNombre] = useState("");
   const [resultado, setResultado] = useState(null);
   const [error, setError] = useState("");
@@ -18,18 +21,18 @@ const BuscarCliente = ({ nodo }) => {
     const token = localStorage.getItem("token");
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/clientes/buscar", {
-        method: "POST",
+      const response = await fetch(`${URL_API}/clientes/buscar?nombre=${nombre}`, {
         headers: {
           "Content-Type": "application/json",
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({ nombre }),
       });
 
       const data = await response.json();
 
       console.log(data)
+
+      console.log('aver')
 
       if (!response.ok) {
         setError(data.error || data.message || "Error desconocido.");
@@ -88,23 +91,12 @@ const BuscarCliente = ({ nodo }) => {
                 <p><strong>Fecha de inicio:</strong> {cliente.fecha_inicio || "No disponible"}</p>
 
                 {/* Datos de la ONU */}
-                <div
-                className="dataONU"
-                  style={{
-
-                    
-                    backgroundColor: (() => {
-                      if (cliente.status !== "Online") return "#f28c8c"; // rojo si está offline
-                      const rx = parseFloat(cliente.rx_power);
-                      if (rx >= -29 && rx <= -19) return "#d4f8d4"; // verde óptimo
-                      if ((rx >= -31 && rx < -29) || (rx > -19 && rx <= -17)) return "#fff4c2"; // naranja cercano
-                      return "#ffe5b4"; // naranja fuera del rango
-                    })(),
-                    color: "#333"
-                  }}
-                >
+                <div className="dataONU">
                   <p><strong>Serial ONU:</strong> {cliente.serial_number || "No asignada, o cambiada sin registrar"}</p>
-                  <p><strong>Rx Power:</strong> {cliente.rx_power || "-"}</p>
+
+                  {/* 🚦 Aquí va tu RxIndicator genérico */}
+                  <RxIndicator rx={cliente.rx_power} status={cliente.status} />
+
                   <p><strong>Tx Power:</strong> {cliente.tx_power || "-"}</p>
                   <p><strong>Temperatura ONU:</strong> {cliente.temperature + " °C" || "No disponible"}</p>
                   <p><strong>Status ONU:</strong> {cliente.status || "Offline"}</p>
@@ -116,7 +108,7 @@ const BuscarCliente = ({ nodo }) => {
                     const token = localStorage.getItem("token");
 
                     try {
-                      const response = await fetch("http://127.0.0.1:8000/api/clientes/asignar-caja", {
+                      const response = await fetch(`${URL_API}/clientes/asignar-caja`, {
                         method: "POST",
                         headers: {
                           "Content-Type": "application/json",
@@ -131,11 +123,7 @@ const BuscarCliente = ({ nodo }) => {
                       const data = await response.json();
 
                       if (response.ok) {
-                        alert("Caja vinculada correctamente.");
-                        // opcional: actualizar el estado local para reflejar el cambio
-                        setResultado(prev => prev.map(c =>
-                          c.id === cliente.id ? { ...c, caja_id: nodo.id } : c
-                        ));
+                        if (onSuccess) onSuccess();
                       } else {
                         alert(data.error || "Error al vincular la caja.");
                       }

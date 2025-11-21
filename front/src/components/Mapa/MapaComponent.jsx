@@ -3,6 +3,7 @@ import L from 'leaflet';
 import { MapContainer, TileLayer, CircleMarker, Polyline, Popup, useMapEvents, Marker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import createNodo from '../../services/nodos/createNodos';
+import URL_API from '../../services/API';
 
 import iconOLT from '../../assets/images/data-center.png';
 import iconBotella from '../../assets/images/botella.png';
@@ -195,8 +196,7 @@ const MapaComponent = () => {
     const fetchNodos = async () => {
       const token = localStorage.getItem('token');
       try {
-        const res = await fetch('http://127.0.0.1:8000/api/nodos', {
-          //const res = await fetch('https://ruralnet.coderalan.com/public/api/nodos', {
+        const res = await fetch(`${URL_API}/nodos`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -265,70 +265,7 @@ const MapaComponent = () => {
 
   return (
     <div className='Mapcontainer'>
-      <div>
-        <div className="containterActions">
-          {!modoCreacion ? (
-            <button className='nuevaCaja' onClick={() => setModoCreacion(true)}>Nuevo Nodo</button>
-          ) : (
-            <button className='cancelarCaja'
-              onClick={() => setModoCreacion(false)}>✖ Cancelar</button>
-          )}
-
-          {!modoConexion ? (
-            <button className='nuevaCaja' onClick={() => {
-              setModoConexion(true);
-              setDibujandoRuta(true);
-            }}>
-              Nueva Conexión
-            </button>
-          ) : (
-            <button className='cancelarCaja'
-              onClick={() => {
-                setModoConexion(false);
-                setNodoOrigen(null);
-                setNodoDestino(null);
-                setDibujandoRuta(false);
-                setRutaTemporal([]);
-              }}>
-              ✖ Cancelar
-            </button>
-          )}
-
-          {
-            <div className="modalMapa">
-              <button className="nuevaCaja" onClick={() => setMostrarModal(!mostrarModal)}>
-                {mostrarModal ? 'Cambiar Mapa' : 'Cambiar Mapa'}
-              </button>
-
-
-              {mostrarModal && (
-                <div className="modalTiles">
-                  <div className="gridOpciones">
-                    {tiles.map(tile => (
-                      <div
-                        key={tile.nombre}
-                        className={`tileOpcion ${tile.url === tileSeleccionado ? 'selected' : ''}`}
-                        onClick={() => setTileSeleccionado(tile.url)}
-                      >
-                        <img src={tile.preview} alt={tile.nombre} />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          }
-
-        </div>
-      </div>
-
-      {(modoCreacion || modoConexion) && (
-        <div className="mensajeFlotante">
-          {modoCreacion && '🛠️ Clickeá en donde quieras el nuevo nodo'}
-          {modoConexion && '🔗 Modo conexión de nodos activo'}
-        </div>
-      )}
-
+      
 
 
       <MapContainer center={[-36.640, -57.790]} zoom={15.5} style={{ width: '100%', height: '100%' }}>
@@ -484,11 +421,7 @@ const MapaComponent = () => {
 
 
       {modalSplitter && (
-        <div style={{
-          position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
-          background: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center',
-          zIndex: 2000
-        }}>
+        <div className="modalAgregarCliente">
           <ModalSplitter onClose={() => { setModalSplitter(false); setNodosResaltados([]); setNodoSelected(null); }} nodo={nodoSelected} />
         </div>
       )}
@@ -573,7 +506,7 @@ const MapaComponent = () => {
                 onClick={async () => {
                   try {
                     const token = localStorage.getItem('token');
-                    const res = await fetch('http://127.0.0.1:8000/api/conexiones', {
+                    const res = await fetch(`${URL_API}/conexiones`, {
                       method: 'POST',
                       headers: {
                         'Content-Type': 'application/json',

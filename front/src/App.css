@@ -140,13 +140,24 @@ body {
   padding: 5px;
 }
 
+/*containerContent*/
+
+.containerContent{
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: start;
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+}
+
 
 /*mapa*/
 
 .Mapcontainer {
   display: flex;
   height: 100%;
-  flex: 1;
+  width: 70%;
 }
 
 .containterActions {
@@ -159,7 +170,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
-
+  padding: 10px;
 }
 
 .nuevaCaja {
@@ -374,7 +385,18 @@ body {
 
 /*modalAgregarCliente*/
 
-.modalAgregarCliente {}
+.modalAgregarCliente {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.445);
+  width: 100%;
+  z-index: 200000;
+  height: 100%; 
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
 
 .casperFormAdddClient {
   z-index: 200001;
@@ -383,17 +405,18 @@ body {
 .agregarClienteModal {
   background-color: #fff;
   border-radius: 4px;
-
-  padding: 10px;
+  padding: .5rem;
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  width: 500px;
   border: 1px solid #d3d3d3;
+  width: 100%;
+  max-width: 338px;
+  top: 1rem;
 }
 
 .agregarClienteModal h2 {
-  font-size: 20px;
+font-size: clamp(0.9rem, 1.1vw, 1.2rem);
+
   color: #333;
   font-weight: 500;
 }
@@ -422,11 +445,12 @@ body {
 
 .formGroupBuscarCliente input {
   width: 100%;
-  padding: 0.5rem;
+  padding: 0.2rem;
   border-radius: 4px;
   border: none;
   background-color: #fff;
-  font-size: 15px;
+font-size: clamp(0.7rem, 0.9vw, 0.9rem);
+
   color: #333;
   cursor: pointer;
 }
@@ -436,18 +460,24 @@ body {
   cursor: pointer;
   border: none;
   color: #fff;
-  padding: 5px 10px;
+  padding: 0 10px;
   border-radius: 0px 4px 4px 0px;
+font-size: clamp(0.8rem, 0.9vw, 0.9rem);
+
 }
 
 .containerResultadoBuscarCliente {
-  padding: 5px 10px 10px 10px;
-  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .resultadoBuscarCliente {
-  max-height: 500px;
-  overflow-y: auto;
+    max-height: 500px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .dataClient {
@@ -456,6 +486,9 @@ body {
   border-radius: 4px;
   border: 1px solid #d3d3d3;
   padding: 0.4rem;
+    font-size: clamp(0.8rem, 0.9vw, 0.9rem);
+    background-color: #ebebeb;
+  
 }
 
 .dataClient {
@@ -466,6 +499,7 @@ body {
   font-weight: 500;
   color: #333;
   margin-bottom: 5px;
+  font-size: .8rem;
 }
 
 
@@ -474,14 +508,20 @@ body {
   padding: 0.4rem;
   border-radius: 8px;
   border: 1px solid #ccc;
+  background-color: #fff;
 }
 
 /*articleSplitters*/
 
 .articleSplitters {
   background-color: #f3f3f3;
-  padding: 1rem;
+  padding: .5rem;
   border-radius: 4px;
+  position: absolute;
+  z-index: 9999;
+  max-height: 88vh;
+  width:700px;
+  margin-top: 2rem;
 }
 
 .containterBtnClose {
@@ -492,7 +532,7 @@ body {
 }
 
 .containterBtnClose h2{
-  font-size: 23px;
+font-size: clamp(1.2rem, 2vw, 1.5rem);
   color: #333;
   font-weight: 500;
 }
@@ -502,8 +542,8 @@ body {
   color: #fff;
   border: none;
   border-radius: 4px;
-  padding: 0.4rem 0.8rem;
-  font-size: 14px;
+  padding: 0.2rem 0.4rem;
+  font-size: .6rem;
   cursor: pointer;
 }
 
@@ -516,10 +556,12 @@ body {
   gap: 5px;
   border: 1px solid #d3d3d3;
   margin-bottom: 0.6rem;
+  width: 100%;
+
 }
 
 .clientesConectados h2 {
-  font-size: 20px;
+font-size: clamp(0.9rem, 1.1vw, 1.2rem);
   color: #333;
   font-weight: 500;
 }
@@ -528,3 +570,268 @@ body {
   display: flex;
   gap: 5px;
 }
+
+.UserList{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.user {
+display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 7px;
+  margin: 1px 0;
+  border-radius: 5px;
+  background-color: #dfdfdf;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+  cursor: pointer;
+
+}
+
+.nameUser{
+  font-weight: 500;
+  margin-right: 10px;
+  font-size: clamp(0.7rem, 1vw, 1rem);
+}
+
+.rxPoweIndicator{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ledIndicator{
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+}
+
+/* Fondo oscurecido + blur */
+.modalClientesOverlay {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Panel lateral */
+.modalClientesPanel {
+  height: 100%;
+  background: rgba(255,255,255,0.90);
+  backdrop-filter: blur(8px);
+  border-left: 1px solid #d3d3d3;
+  padding: .5rem .8rem;
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.25s ease-out;
+}
+
+.articleVerCliente{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  width: 30%;
+  min-width: 336px;
+}
+
+.articleVerCliente button{
+  background: linear-gradient(135deg, #4a90e2, #357ABD);
+  padding: 4px 12px;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: clamp(0.8rem, 1vw, .8rem);
+  cursor: pointer;
+}
+
+.inputBuscar{
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: none;
+  background-color: #fff;
+  font-size: 15px;
+  color: #333;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  border: 1px solid #d9e2ec;
+}
+
+/* Animación */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Header del modal */
+.modalClientesHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.modalClientesHeader h2 {
+  color: #2e3a59;
+  font-size: clamp(0.9rem, 1.1vw, 1.2rem);
+  font-weight: 500;
+}
+
+.modalClientesHeader button {
+  background: #bd3535;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Lista */
+.listaClientes {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.clienteCard {
+  background: white;
+  border: 1px solid #d9e2ec;
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.clienteCard h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2e3a59;
+  margin-bottom: 4px;
+}
+
+.clienteUsuario {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+.rxPower {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+
+/*estilos del componente de las luces*/
+
+.rxWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rxDot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+}
+
+.rxText {
+font-size: clamp(0.7rem, 0.9vw, 0.9rem);
+
+  color: #555;
+}
+
+/* Colores */
+.rx-bueno {
+  background-color: #4CAF50;   /* verde */
+}
+
+.rx-regular {
+  background-color: #FFC107;   /* amarillo */
+}
+
+.rx-malo {
+  background-color: #FF9800;   /* naranja */
+}
+
+.rx-offline {
+  background-color: #f28c8c;   /* rojo */
+}
+
+
+.paginacion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin-top: 20px;
+  font-size: clamp(0.85rem, 1vw, 1rem);
+  user-select: none;
+}
+
+.paginacion span {
+  color: #555;
+  font-weight: 500;
+}
+
+.paginacion button {
+  padding: 6px 14px;
+  font-size: clamp(0.75rem, 1vw, 0.95rem);
+  border: none;
+  border-radius: 8px;
+  background-color: #1976d2;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.paginacion button:hover {
+  background-color: #145ea8;
+  transform: translateY(-1px);
+}
+
+.paginacion button:active {
+  transform: scale(0.96);
+}
+
+.paginacion button:disabled {
+  background-color: #b0bec5;
+  cursor: not-allowed;
+}
+
+
+/*responsive*/
+
+@media screen and (max-width: 860px) {
+
+  .containerContent{
+    padding: 0;
+  }
+
+  .containerClientesSplitter{
+    flex-direction: column;
+  }
+
+  .articleSplitters{
+        height: 100%;
+        width: 100%;
+      overflow: scroll;
+      margin-top: 0;
+  }
+
+  .resultadoBuscarCliente{
+    max-height: 315px;
+  }
+
+  
+}
+

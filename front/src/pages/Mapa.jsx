@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { verifyToken } from "../services/Login/authService"; 
 import Header from "../components/Header";
 import MapaComponent from "../components/Mapa/MapaComponent";
+import Aside from "../components/Aside/Aside";
+import VerClientes from "../components/Clientes/VerClientes";
 
 const Products = () => {
   const navigate = useNavigate();
@@ -31,9 +33,11 @@ const Products = () => {
   return (
     <>
       <Header />
-      <div className="Mapcontainer">
+      <section className="containerContent">
+        <VerClientes />
         <MapaComponent />
-      </div>
+      </section>
+    
     </>
   );
 };
