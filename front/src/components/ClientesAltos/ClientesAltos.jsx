@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import fetchClientesLimite from "../../services/Clientes/ClientesLimite";
-import RxIndicator from "../RxIndicator/RxIndicator"; 
+import RxIndicator from "../RxIndicator/RxIndicator";
 import './ClientesAltos.css'
 
-const ClientesAltos = () => {
-  const [open, setOpen] = useState(false);
+const ClientesAltos = ({ open, setOpen }) => {
   const [clientes, setClientes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -44,18 +43,10 @@ const ClientesAltos = () => {
       <article className={`articleClientesAltos ${open ? "abierto" : "cerrado"}`}>
         <div className="headerAltos">
           <h2>Clientes Altos {pagination?.total ?? 0}</h2>
-       <button className="btnClientesAltos" onClick={() => setOpen(!open)}>
-  <svg width="22" height="22" viewBox="0 0 24 24">
-    <path 
-      d="M1 21h22L12 2 1 21zM12 16h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" 
-      fill="currentColor" 
-    />
-  </svg>
-  Rango
-</button>
-
+            {/* <button className="btnClientesAltos" onClick={() => setOpen(!open)}>
+            Rango
+          </button>*/}
         </div>
-
         {open && (
           <div className="contenidoAltos">
 
@@ -78,9 +69,9 @@ const ClientesAltos = () => {
                       </div>
 
                       {/* 👇 REUTILIZAMOS TU INDICADOR GROSO */}
-                      <RxIndicator 
-                        rx={cli.rx_power} 
-                        status={cli.status ?? "Online"} 
+                      <RxIndicator
+                        rx={cli.rx_power}
+                        status={cli.status ?? "Online"}
                       />
 
                     </div>

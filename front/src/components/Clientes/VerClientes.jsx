@@ -3,7 +3,7 @@ import RxIndicator from "../RxIndicator/RxIndicator";
 import URL_API from "../../services/API";
 import './VerCliente.css'
 
-const VerClientes = () => {
+const VerClientes = ({ abierto, setAbierto }) => {
   const [clientes, setClientes] = useState([]);
   const [modalClientes, setModalClientes] = useState(false);
   const [pagination, setPagination] = useState({});
@@ -11,11 +11,9 @@ const VerClientes = () => {
   const [debounceTimer, setDebounceTimer] = useState(null);
   const [filtroRx, setFiltroRx] = useState("todos");
 
-  const [abierto, setAbierto] = useState(false);
 
-  const togglePanel = () => {
-    setAbierto(!abierto);
-  };
+    const togglePanel = () => setAbierto(!abierto);
+
 
 
   const handleModalClientes = () => {
@@ -79,12 +77,9 @@ const VerClientes = () => {
   return (
     <>
       <article className={`articleVerCliente ${abierto ? "abierto" : "cerrado"}`}>
-        <button className="btnVer" onClick={togglePanel}>
-          <svg width="22" height="22" viewBox="0 0 24 24">
-            <path d="M16 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3zM6 11c1.66 0 3-1.34 3-3S7.66 5 6 5 3 6.34 3 8s1.34 3 3 3zm10 2c-2.33 0-7 1.17-7 3.5V20h14v-3.5c0-2.33-4.67-3.5-7-3.5zM6 13c-2.33 0-7 1.17-7 3.5V20h7v-3.5C6 14.17 8.33 13 6 13z" fill="currentColor" />
-          </svg>
+      {/*<button className="btnVer" onClick={togglePanel}>
           <p>Clientes</p>
-        </button>
+        </button>*/}
         <div className="modalClientesOverlay">
           <div className="modalClientesPanel">
             <div className="modalClientesHeader">

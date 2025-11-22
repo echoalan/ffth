@@ -134,7 +134,7 @@ class ClienteController extends Controller
                 )
                 ->whereRaw("CAST(o.rx_power AS DECIMAL(5,3)) <= -27")
                 ->orderBy('o.rx_power', 'desc')
-                ->paginate(10);  // 👈 PAGINADO AQUÍ
+                ->paginate(10);  
 
             return response()->json([
                 'success' => true,

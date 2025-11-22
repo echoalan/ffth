@@ -1,5 +1,5 @@
 // src/pages/Products.js
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";  
 import { verifyToken } from "../services/Login/authService"; 
 import Header from "../components/Header";
@@ -10,6 +10,9 @@ import ClientesAltos from "../components/ClientesAltos/ClientesAltos";
 
 const Products = () => {
   const navigate = useNavigate();
+
+  const [verClientesAbierto, setVerClientesAbierto] = useState(false);
+  const [clientesAltosAbierto, setClientesAltosAbierto] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -33,10 +36,19 @@ const Products = () => {
 
   return (
     <>
-      <Header />
+      <Header
+  toggleVerClientes={() => setVerClientesAbierto(!verClientesAbierto)}
+  toggleClientesAltos={() => setClientesAltosAbierto(!clientesAltosAbierto)}
+/>
       <section className="containerContent">
-        <VerClientes />
-        <ClientesAltos/>
+      <VerClientes 
+        abierto={verClientesAbierto} 
+        setAbierto={setVerClientesAbierto} 
+      />
+      <ClientesAltos 
+        open={clientesAltosAbierto} 
+        setOpen={setClientesAltosAbierto} 
+      />
         <MapaComponent />
       </section>
     
