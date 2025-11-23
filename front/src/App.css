@@ -168,6 +168,63 @@ body {
 }
 
 
+.hamburger {
+  background: none;
+  border: none;
+  display: none; /* Oculto en desktop */
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+  margin-right: .7rem;
+}
+
+.hamburger span {
+  width: 22px;
+  height: 2.5px;
+  background: #fff;
+  border-radius: 4px;
+  transition: .3s;
+}
+
+/* --- MENÚ MOBILE --- */
+@media (max-width: 600px) {
+
+  .containerBtnVer {
+    position: absolute;
+    top: 3.5rem;
+    right: .5rem;
+    background: #323232;
+    padding: .7rem;
+    border-radius: 8px;
+    flex-direction: column;
+    gap: .6rem;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+    transition: all .3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 999999999;
+  }
+
+  .containerBtnVer.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .hamburger {
+    display: flex; /* Ahora sí se ve */
+  }
+}
+
+/* Desktop: como estaba antes */
+@media (min-width: 600px) {
+  .containerBtnVer {
+    display: flex;
+  }
+}
+
+
 
 
 

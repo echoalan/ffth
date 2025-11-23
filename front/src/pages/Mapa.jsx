@@ -41,15 +41,15 @@ const Products = () => {
   toggleClientesAltos={() => setClientesAltosAbierto(!clientesAltosAbierto)}
 />
       <section className="containerContent">
-      <VerClientes 
-        abierto={verClientesAbierto} 
-        setAbierto={setVerClientesAbierto} 
-      />
-      <ClientesAltos 
-        open={clientesAltosAbierto} 
-        setOpen={setClientesAltosAbierto} 
-      />
-        <MapaComponent />
+        <VerClientes 
+          abierto={verClientesAbierto} 
+          setAbierto={setVerClientesAbierto} 
+        />
+        <ClientesAltos 
+          open={clientesAltosAbierto} 
+          setOpen={setClientesAltosAbierto} 
+        />
+          <MapaComponent />
       </section>
     
     </>

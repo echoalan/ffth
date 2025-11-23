@@ -8,6 +8,10 @@ use App\Http\Controllers\ClienteController;
 
 use Illuminate\Support\Facades\Route;
 
+Route::any('/test', function () {
+    return 'entra';
+});
+
 Route::middleware(['jwt.auth'])->group(function () {
 
    
@@ -40,10 +44,17 @@ Route::middleware(['jwt.auth'])->group(function () {
     });
 
     Route::prefix('clientes')->group(function () {
-        Route::post('/asignar-caja', [ClienteController::class, 'asignarCaja']);
+        
+        Route::post('/', [ClienteController::class, 'crearCliente']);
         Route::get('/', [ClienteController::class, 'listarClientes']);
+
+
+        Route::post('/asignar-caja', [ClienteController::class, 'asignarCaja']);
+       
         Route::get('/buscar', [ClienteController::class, 'buscarPorNombre']);// búsqueda por nombre
         Route::get('/limite', [ClienteController::class, 'clientesRxAlLimite']);
+        
+
     });
 
 

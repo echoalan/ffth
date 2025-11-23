@@ -190,3 +190,16 @@
     transform: translateY(0);
   }
 }
+
+
+
+@media screen and (max-width: 860px) {
+
+  .articleSplitters {
+    height: 100%;
+    width: 95%;
+    overflow: scroll;
+    margin-top: 0;
+  }
+
+}

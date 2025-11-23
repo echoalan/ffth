@@ -17,6 +17,26 @@
   animation: slideIn 0.25s ease-out;
 }
 
+.headerModalClientePanel {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: .5rem;
+}
+
+.headerModalClientePanel button {
+  background: #323232;
+  padding: .4rem .6rem;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: clamp(0.8rem, 1vw, .8rem);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .4rem;
+}
+
 .articleVerCliente {
   display: flex;
   flex-direction: column;
@@ -82,7 +102,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
 }
 
 .modalClientesHeader h2 {
@@ -114,6 +133,11 @@
   padding: .4rem .6rem;
   margin-bottom: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.clienteCard:hover {
+  background-color: #eeeeee;
+  transition: .1s;
 }
 
 .clienteCard h3 {

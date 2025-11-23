@@ -54,36 +54,66 @@ class ClienteController extends Controller
         ]);
     }
 
-    public function listarClientes()
+
+
+    public function crearCliente(Request $request)
     {
-        $clientes = DB::table('clientes as c')
-            ->leftJoin('onus as o', function($join) {
-                $join->whereRaw("RIGHT(TRIM(c.usuario), 6) = RIGHT(TRIM(o.serial_number), 6)");
-            })
-            ->select(
-                'c.id',
-                'c.usuario', 
-                'c.nombre', 
-                'c.plan',
-                'c.fecha_inicio',
-                'c.direccion',
-                'c.caja_id',
-                'o.serial_number', 
-                'o.rx_power', 
-                'o.tx_power', 
-                'o.temperature',
-                'o.status',
-                'o.distance'
-            )
-            ->orderBy('c.nombre', 'asc')
-            ->paginate(20); // 👈 PAGINACIÓN
+        // Validación mínima
+        $request->validate([
+            'nombre'  => 'required|string|max:255',
+            'usuario' => 'required|string|max:255'
+        ]);
+
+        // Crear cliente con valores mínimos
+        $cliente = Cliente::create([
+            'codigo'        => '',          // vacío
+            'nombre'        => $request->nombre,
+            'direccion'     => '',          // vacío
+            'plan'          => '',          // vacío
+            'usuario'       => $request->usuario,
+            'fecha_inicio'  => now(),       // algo tiene que guardar, o Laravel se queja
+            'caja_id'       => null         // sin caja por default
+        ]);
 
         return response()->json([
             'success' => true,
-            'message' => 'Listado de clientes paginado.',
-            'data' => $clientes
-        ]);
+            'message' => 'Cliente creado correctamente.',
+            'data'    => $cliente
+        ], 201);
     }
+
+
+public function listarClientes()
+{
+    $clientes = DB::table('clientes as c')
+        ->leftJoin('onus as o', function($join) {
+            $join->on(DB::raw("RIGHT(TRIM(c.usuario), 6)"), '=', DB::raw("RIGHT(TRIM(o.serial_number), 6)"));
+        })
+        ->select(
+            'c.id',
+            'c.usuario', 
+            'c.nombre', 
+            'c.plan',
+            'c.fecha_inicio',
+            'c.direccion',
+            'c.caja_id',
+            'o.serial_number', 
+            'o.rx_power', 
+            'o.tx_power', 
+            'o.temperature',
+            'o.status',
+            'o.distance'
+        )
+        ->orderBy('c.nombre', 'asc')
+        ->paginate(20);
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Listado de clientes paginado.',
+        'data' => $clientes
+    ]);
+}
+
 
 
     public function asignarCaja(Request $request)
